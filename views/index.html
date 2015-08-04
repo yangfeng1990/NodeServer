@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Full Size Background Image jQuery Plugin - Demo | bavotasan.com</title>
+	<link rel='stylesheet' href='/stylesheets/bootstrap/css/bootstrap.min.css' />
+	<script src="/javascripts/scripts/jquery.min.js"></script>
+	<script src="/javascripts/scripts/jquery.fullbg.min.js"></script>
+	<script src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		.fullBg {
+			position: fixed;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+		}
+	</style>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$("#background").fullBg();
+		});
+		$(document).ready(function(){
+			// register
+			$("#register").click(function(){
+				$.ajax({
+     				url : 'http://localhost:3000/register',			        
+			        cache: false,
+					success : function(data, status){    
+						window.location.href = 'http://localhost:3000/register';
+					}});
+			});
+			// login
+			$("#login").click(function(){
+				$.ajax({
+     				url : 'http://localhost:3000/login',			        
+			        cache: false,
+					success : function(data, status){    
+						window.location.href = 'http://localhost:3000/login';
+					}});
+			});
+		}); 
+	</script>
+</head>
+<body>
+	<img src="images/background.jpg" alt="" id="background"/>
+	<div class="col-lg-8 col-sm-6 col-xs-4" style="margin: 20px auto auto auto"></div>
+	<div class="col-lg-4 col-sm-6 col-xs-8" id="logindev"  align="right" style="margin: 20px auto auto auto">
+		<button class="btn btn-md btn-primary" type="button" id="login">Login</button>
+		<button class="btn btn-md btn-primary" type="button" id="register">Register</button>
+	</div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap/css/bootstrap.min.css' />
+	<script src="/javascripts/scripts/jquery.min.js"></script>
+	<script src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/javascripts/scripts/jquery.fullbg.min.js"></script>
+	<style type="text/css">
+		.fullBg {
+			position: fixed;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+		}
+	</style>
+	<script>
+		// 加载背景
+		$(window).load(function() {
+			$("#background").fullBg();
+		});
+		// 处理请求
+		$(document).ready(function(){
+			// GET
+			$("#register").click(function(){
+				$.ajax({
+     				url : 'http://localhost:3000/register',			        
+			        cache: false,
+					success : function(data, status){    
+						window.location.href = 'http://localhost:3000/register';
+					}});
+			});
+		
+			// POST
+			$("#sign-post").click(function(){
+				if (document.getElementById("inputUserName").value == "" || document.getElementById("inputPassword").value == "")
+				{
+					document.getElementById("modal-body").innerHTML = 'username or password is empty！';
+					$(function () { 
+						$('#myModal').modal({
+							keyboard: true
+						})
+					});
+					//alert("用户名或密码为空！");
+					return;
+				}
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+					if (xhr.readyState==4 && xhr.status==200){
+						if (xhr.responseText == 'success')
+						{
+							window.location.href = 'http://localhost:3000/main';
+						}
+						else
+						{
+							document.getElementById("modal-body").innerHTML = xhr.responseText;
+							$(function () { 
+								$('#myModal').modal({
+									keyboard: true
+								})
+							});
+							// alert(xhr.responseText);
+						}
+					}
+				}
+				xhr.open("POST", "http://localhost:3000/login?username=" + document.getElementById("inputUserName").value + "&password=" + document.getElementById("inputPassword").value,true);
+				xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xhr.send(); 
+			});
+		}); 
+	</script>
+</head>
+<body>
+	<div class="container">
+		<img src="images/background.jpg" alt="" id="background"/>
+		<div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" id="logindev">
+			<form class="form">
+				<h2>Please Login</h2>
+				<label for="inputUserName">username:</label>
+				<input type="text" id="inputUserName" class="form-control" placeholder="UserName" required="" autofocus="">
+				<label for="inputPassword">Password:</label>
+				<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+				<div class="checkbox">
+					<label><input type="checkbox" value="remember-me"> Remember me</label>
+				</div>
+				<button class="btn btn-lg btn-primary btn-block" type="button" id="sign-post">Login</button>
+				<!-- <button class="btn btn-lg btn-primary btn-block" type="button" id="register">Register</button> -->
+			</form>
+		</div>
+	</div> 
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">
+					   System Prompt
+					</h4>
+				</div>
+				<div class="modal-body" id="modal-body">
+				在这里添加一些文本
+				</div>
+				 <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				 </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

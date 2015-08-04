@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+   <link rel='stylesheet' href='/stylesheets/bootstrap/css/bootstrap.min.css' />
+	<script src="/javascripts/scripts/jquery.min.js"></script>
+	<script src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/javascripts/scripts/jquery.fullbg.min.js"></script>
+	<style type="text/css">
+		.fullBg {
+			position: fixed;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+		}
+	</style>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$("#background").fullBg();
+		});
+		$(document).ready(function(){
+			// register
+			$("#download").click(function(){
+				$.ajax({
+     				url : 'http://localhost:3000/download',			        
+			        cache: false,
+					success : function(data, status){    
+						window.location.href = 'http://localhost:3000/download';
+						//alert('success');
+						//return;
+					}});
+			});
+			
+			$("#upload").click(function(){
+				$.ajax({
+     				url : 'http://localhost:3000/upload',			        
+			        cache: false,
+					success : function(data, status){    
+						window.location.href = 'http://localhost:3000/upload';
+					}});
+			});
+			
+			// login
+		/*	$("#login").click(function(){
+				$.ajax({
+     				url : 'http://localhost:3000/login',			        
+			        cache: false,
+					success : function(data, status){    
+						window.location.href = 'http://localhost:3000/login';
+					}});
+			});*/
+		}); 
+	</script>
+<!--	<input type="button" value="logout" onclick="location.href='/';" /> -->
+  </head>
+  <body>
+	<div class="container">
+		<img src="images/background.jpg" alt="" id="background"/>
+		<div class="row">
+			<div class="col-lg-4 col-sm-6 col-xs-8" id="logindev" style="margin: 20px auto auto auto">
+				<button class="btn btn-lg btn-primary btn-block" type="button" id="download" align="right" >DownLoad</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-sm-6 col-xs-8" id="logindev"  align="right" style="margin: 20px auto auto auto">
+				<button class="btn btn-lg btn-primary btn-block" type="button" id="upload">Upload</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-sm-6 col-xs-8" id="logindev"  align="right" style="margin: 20px auto auto auto">
+				<button class="btn btn-lg btn-primary btn-block" type="button" id="sign-post">Login</button>
+			</div>
+		</div>
+	</div> 
+	<!--	<div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" id="logindev">
+			<form class="form">
+				<h2>Please Login</h2>
+				<label for="inputUserName">username:</label>
+				<input type="text" id="inputUserName" class="form-control" placeholder="UserName" required="" autofocus="">
+				<label for="inputPassword">Password:</label>
+				<input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+				<div class="checkbox">
+					<label><input type="checkbox" value="remember-me"> Remember me</label>
+				</div>
+				<button class="btn btn-lg btn-primary btn-block" type="button" id="sign-post">Login</button>
+				<!-- <button class="btn btn-lg btn-primary btn-block" type="button" id="register">Register</button> 
+			</form>
+		</div> -->
+
+  <!--<form class="form-horizontal" method="post">
+		<fieldset>
+			<legend>文件读取</legend>
+			<div class="control-group">
+				<label class="control-label" for="username">路径：</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="filepath" name="filepath">
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-login" id="readfile ">readfile</button>
+			</div>
+		</fieldset>
+	</form> -->
+  </body>
+</html>

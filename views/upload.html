@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap/css/bootstrap.min.css' />
+	<script src="/javascripts/scripts/jquery.min.js"></script>
+	<script src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/javascripts/scripts/jquery.fullbg.min.js"></script>
+	<style type="text/css">
+		.fullBg {
+			position: fixed;
+			top: 0;
+			left: 0;
+			overflow: hidden;
+		}
+	</style>
+	<script>
+		// 加载背景
+		$(window).load(function() {
+			$("#background").fullBg();
+		});
+		
+		String.prototype.format = function (args) {
+		var result = this;
+		  if (arguments.length > 0) {
+			if (arguments.length == 1 && typeof (args) == "object") {
+			  for (var key in args) {
+				if (args[key] != undefined) {
+				  var reg = new RegExp("({" + key + "})", "g");
+				  result = result.replace(reg, args[key]);
+				}
+			  }
+			}
+			else {
+			  for (var i = 0; i < arguments.length; i++) {
+				if (arguments[i] != undefined) {
+				  var reg = new RegExp("({)" + i + "(})", "g");
+				  result = result.replace(reg, arguments[i]);
+				}
+			  }
+			}
+		  }
+		  return result;
+		}
+
+		$(function(){
+			$('#btnSub').on('click', function(){		   
+				var fulAvatarVal = $('#fulAvatar').val(),  
+				errorTip = '<div id="errorTip" class="alert alert-warning">{0}</div> ';  
+				$("#errorTip,#alt_warning").remove();		  
+				if(fulAvatarVal.length == 0)
+				{
+					$("#container").prepend(errorTip.format('请选择要上传的文件'));
+					return false;
+				}
+				var extName = fulAvatarVal.substring(fulAvatarVal.lastIndexOf('.'),fulAvatarVal.length).toLowerCase();
+				/*if(extName != '.png' && extName != '.jpg'){					 $("#container").prepend(errorTip.format('只支持png和jpg格式图片'));				 
+					return false;				
+				}
+				*/	  
+		  return true;				
+		})
+	});
+	</script>
+</head>
+<body>
+	<div class="container">
+		<img src="images/background.jpg" alt="" id="background"/> 
+		<div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" id="logindev">
+			<form class="form-signin" role="form" method="post" enctype='multipart/form-data'>
+				<h2 class="form-signin-heading">上传文件</h2>
+				<input id="fulAvatar" name="fulAvatar" type="file" class="form-control" />	
+				<br/>
+				<% if (locals.success) { %> 
+					<h4 class="form-signin-heading">上传状态：成功</h4>
+				<% } %> 
+				<% if (locals.error) { %> 
+					<h4 class="form-signin-heading">上传状态：失败</h4>
+				<% } %> 
+				<% if ((!locals.success)&&(!locals.error)) { %> 
+					<h4 class="form-signin-heading">上传状态：未上传</h4>
+				<% } %> 
+				<br/>
+				<button id="btnSub" class="btn btn-lg btn-primary" type="submit">上传</button>
+			</form>
+		</div>
+	</div>	
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">
+					   System Prompt
+					</h4>
+				</div>
+				<div class="modal-body" id="modal-body">
+				在这里添加一些文本
+				</div>
+				 <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				 </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
